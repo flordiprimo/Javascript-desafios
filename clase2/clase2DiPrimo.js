@@ -14,11 +14,11 @@ let color = prompt("Elegí cualquier color menos rojo");
 
 if ( color == ("rojo" || "ROJO") ){
 
-    alert ("¡Te dije que no eligieras rojo!")
+    alert ("¡Te dije que no eligieras rojo!");
 
 }
 else if ( color == ("amarillo" || "AMARILLO")){
-    alert("No me gusta el amarillo.")
+    alert("No me gusta el amarillo.");
 }
 else {
     alert ("¡El " + color + " es un lindo color!");

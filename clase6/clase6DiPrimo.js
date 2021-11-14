@@ -51,7 +51,7 @@ function elegirProd1(){ productos[0].agregar()
 function elegirProd2(){ productos[1].agregar()
 }
 
-function elegirProd3(){ producto[2].agregar()
+function elegirProd3(){ productos[2].agregar()
 }
 
 let envioElegido = "ninguno";
@@ -77,7 +77,7 @@ function elegirEnvio3(){
 }
 
 function mostrarCarrito(){
-    let mostrarData = [];
+    let mostrarData = `Productos: \n`;
     let total = 0;
     carrito.forEach(productos => {
         mostrarData += `${productos.nombre} - $${productos.precio} \n`;

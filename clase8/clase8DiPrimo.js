@@ -43,6 +43,7 @@ function Productos (nombreProducto, precioProducto, stockProducto) {
             let badge = document.getElementById("itemCarrito");
             let span = badge.childNodes[0];
             span.nodeValue = carrito.length;
+            // crea y actualiza contenido dinámico en el modal de carrito
             let productoCarrito = document.createElement("li");
             productoCarrito.innerHTML = `${this.nombreProducto} - $${this.precioProducto}`;
             subtotal += this.precioProducto;

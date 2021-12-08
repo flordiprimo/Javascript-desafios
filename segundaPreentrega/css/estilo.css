@@ -1,0 +1,254 @@
+.bg-black, .btn-friki {
+  background-color: black; }
+
+.text-black {
+  color: black; }
+
+.bg-uno {
+  background-color: #ff66c4; }
+
+.text-uno {
+  color: #ff66c4; }
+
+.bg-dos {
+  background-color: #77d0b8; }
+
+.text-dos {
+  color: #77d0b8; }
+
+.bg-white {
+  background-color: white; }
+
+.text-white, .btn-friki {
+  color: white; }
+
+#navbar .nav-friki-item a {
+  font-family: "Roboto";
+  font-weight: 400;
+  font-size: 1rem;
+  color: white;
+  padding: 20px; }
+  #navbar .nav-friki-item a:hover {
+    color: #ff66c4; }
+
+#navbar .nav-friki-item-active {
+  border-bottom: solid 3px #ff66c4; }
+  #navbar .nav-friki-item-active a {
+    font-family: "Roboto";
+    font-weight: 500;
+    font-size: 1rem;
+    color: white;
+    padding: 20px; }
+
+#navbar .navCollapse {
+  margin-left: 500px; }
+
+#carrito ul {
+  list-style: none; }
+
+#carrito .carrito a {
+  font-family: "Roboto";
+  font-weight: 400;
+  font-size: 1rem;
+  color: white;
+  padding: 20px; }
+  #carrito .carrito a:hover {
+    color: white;
+    border-bottom: solid 3px #ff66c4; }
+
+footer p {
+  font-family: "Roboto";
+  font-weight: 400;
+  font-size: 0.8rem;
+  color: white;
+  padding: 0px; }
+
+footer h5 {
+  padding-top: 10px;
+  padding-bottom: 5px; }
+
+footer .btn-friki-footer {
+  color: white;
+  background-color: #ff66c4;
+  font-weight: 500;
+  transition-duration: 0.25s;
+  margin-bottom: 20px; }
+  footer .btn-friki-footer:hover {
+    background-color: #77d0b8;
+    font-weight: 500;
+    transition-duration: 0.25s; }
+
+footer a {
+  color: white;
+  text-decoration: none; }
+  footer a:hover {
+    color: #ff66c4;
+    text-decoration: none; }
+
+.btn-friki {
+  font-weight: 500;
+  transition-duration: 0.25s; }
+  .btn-friki:hover {
+    background-color: #ff66c4;
+    font-weight: 500;
+    transition-duration: 0.25s; }
+
+.volanta__texto {
+  font-family: "Roboto";
+  font-weight: 500;
+  font-size: 1rem;
+  color: white;
+  padding: 5px; }
+
+.destacado__titulo {
+  font-family: "Roboto";
+  font-weight: 900;
+  font-size: 2.8rem;
+  color: black;
+  padding: 5px; }
+
+.precio {
+  font-family: "Roboto";
+  font-weight: 500;
+  font-size: 1.2rem;
+  color: black;
+  padding: 0px; }
+
+.sectionTitle, #formatos a h2 {
+  font-family: "Roboto";
+  font-weight: 900;
+  font-size: 3rem;
+  color: white;
+  padding: 0px 10px 0px 10px;
+  margin-top: 20px; }
+
+#error {
+  min-height: 413px; }
+  #error h2 {
+    font-family: "Roboto";
+    font-weight: 900;
+    font-size: 2rem;
+    color: black;
+    padding: 0px 0px 0px 0px; }
+  #error .error__texto {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center; }
+
+.link__texto {
+  color: #ff66c4;
+  font-weight: bold; }
+  .link__texto:hover {
+    color: #77d0b8; }
+
+#destacado {
+  background-image: url(../images/destacado_velvet.png);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 500px;
+  margin-bottom: 25px; }
+  #destacado div {
+    margin-top: 20px; }
+  #destacado .destacado__descripcion {
+    font-family: "Roboto";
+    font-weight: 400;
+    font-size: 1rem;
+    color: black;
+    padding: 5px; }
+
+#formatos a {
+  color: white;
+  width: 100%;
+  height: 100%;
+  display: block; }
+  #formatos a:hover {
+    color: #ff66c4;
+    text-decoration: none;
+    transition-duration: 1s; }
+  #formatos a h2 {
+    font-size: 2.5rem; }
+    #formatos a h2:hover {
+      color: #ff66c4;
+      transition-duration: 1s; }
+
+#formatos #formatos-vinilos {
+  background-image: url(../images/vinilo.png);
+  background-size: 100%;
+  height: 300px;
+  transition-duration: 1s; }
+  #formatos #formatos-vinilos:hover {
+    background-size: 120%;
+    transition-duration: 1s; }
+
+#formatos #formatos-cds {
+  background-image: url(../images/cds.png);
+  background-size: 100%;
+  transition-duration: 1s;
+  height: 300px; }
+  #formatos #formatos-cds:hover {
+    background-size: 120%;
+    transition-duration: 1s; }
+
+#formatos #formatos-cassettes {
+  background-image: url(../images/vinilo.png);
+  background-size: 100%;
+  transition-duration: 1s;
+  height: 300px; }
+  #formatos #formatos-cassettes:hover {
+    background-size: 120%;
+    transition-duration: 1s; }
+
+#formatos .categoriaBlock {
+  display: block;
+  width: 100%;
+  height: 100%; }
+
+#novedades {
+  margin-top: 20px; }
+  #novedades .contenedor__novedades {
+    margin-left: 1rem;
+    margin-right: 1rem;
+    margin-top: 1rem; }
+  #novedades .novedades__producto__nombre, #novedades #seccionCatalogo .producto__nombre, #seccionCatalogo #novedades .producto__nombre {
+    font-family: "Roboto";
+    font-weight: 500;
+    font-size: 1.1rem;
+    color: white;
+    padding: 0px;
+    margin-top: 10px; }
+    #novedades .novedades__producto__nombre span, #novedades #seccionCatalogo .producto__nombre span, #seccionCatalogo #novedades .producto__nombre span {
+      padding: 2px; }
+  #novedades .novedades__producto__descripcion {
+    font-family: "Roboto";
+    font-weight: 400;
+    font-size: 1rem;
+    color: black;
+    padding: 0px; }
+
+#comoComprar {
+  margin-top: 20px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  background-color: rgba(255, 102, 196, 0.2); }
+  #comoComprar .comoComprar__texto {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; }
+  #comoComprar p {
+    text-align: center;
+    font-size: 1.2rem;
+    margin-bottom: 50px; }
+
+#seccionCatalogo .producto__nombre {
+  font-size: 1.1rem;
+  min-height: 2.5rem; }
+
+#seccionDestacado {
+  margin-top: 20px; }

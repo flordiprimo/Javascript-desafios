@@ -1,0 +1,34 @@
+#navbar {
+    .nav-friki-item {
+        a {
+            @include fontstyling('Roboto',400,1rem ,$colorWhite,20px);
+            &:hover {
+            color: $colorUno;
+        }
+        }
+    }
+    .nav-friki-item-active {
+        border-bottom: solid 3px $colorUno;
+        a {
+            @include fontstyling('Roboto',500,1rem ,$colorWhite,20px);
+        }
+        
+    }
+    .navCollapse{
+        margin-left: 500px;
+    }
+}
+#carrito {
+    ul {
+        list-style: none;
+    }
+    .carrito {
+        a {
+            @include fontstyling('Roboto',400,1rem ,$colorWhite,20px);
+            &:hover {
+            color: $colorWhite;
+            border-bottom: solid 3px $colorUno;
+        }
+        } 
+    }
+}

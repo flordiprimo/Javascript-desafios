@@ -1,0 +1,44 @@
+.btn-friki {
+    @extend .bg-black;
+    @extend .text-white;
+    font-weight: 500;
+    transition-duration: 0.25s;
+    &:hover {
+        background-color: $colorUno;
+        font-weight: 500;
+        transition-duration: 0.25s;
+    }
+}
+.volanta__texto {
+    @include fontstyling('Roboto',500,1rem,$colorWhite,5px);
+}      
+.destacado__titulo {
+    @include fontstyling('Roboto',900,2.8rem,$colorBlack,5px); 
+} 
+.precio {
+    @include fontstyling('Roboto',500,1.2rem,$colorBlack,0px )
+}
+.sectionTitle {
+    @include fontstyling('Roboto',900,3rem,$colorWhite,0px 10px 0px 10px);
+    margin-top: 20px;
+}
+#error {
+    min-height: 413px;
+    h2 {
+        @include fontstyling('Roboto',900,2rem,$colorBlack, 0px 0px 0px 0px)
+    }
+    .error__texto {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+    }
+}
+.link__texto {
+    color: $colorUno;
+    font-weight: bold;
+    &:hover {
+        color: $colorDos;
+    }
+}

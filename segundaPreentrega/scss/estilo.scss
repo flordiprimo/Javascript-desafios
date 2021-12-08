@@ -1,0 +1,30 @@
+@import "variables";
+
+$colores: ("black",$colorBlack), ("uno",$colorUno), ("dos",$colorDos), ("white",$colorWhite);
+
+@each $color in $colores {
+    .bg-#{nth($color,1)} {
+        background-color: nth($color,2);
+    }
+    .text-#{nth($color,1)}{
+        color: nth($color,2);
+    }
+}
+@mixin fontstyling($fontFamily, $fontWeight, $fontSize, $fontColor,$padding) {
+    font-family: $fontFamily;
+    font-weight: $fontWeight;
+    font-size: $fontSize;
+    color: $fontColor;
+    padding: $padding;
+}
+
+@mixin transparentBackgroundColor($alpha,$color) {
+    background-color: rgba(red($color), green($color), blue($color), $alpha);
+  }
+
+  @import "navbar";
+  @import "footer";
+  @import "estilosComunes";
+  @import "estilosHome";
+  @import "estilosCatalogo";
+  @import "estilosDestacado";

@@ -1,0 +1,8 @@
+#seccionCatalogo {
+    .producto__nombre {
+     @extend .novedades__producto__nombre;
+    font-size: 1.1rem;
+    min-height: 2.5rem;
+    }
+
+}

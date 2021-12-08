@@ -1,0 +1,108 @@
+#destacado {
+    background-image: url(../images/destacado_velvet.png);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 500px;
+    margin-bottom: 25px;
+    div {
+        margin-top: 20px;
+    }
+    .destacado__descripcion {
+        @include fontstyling('Roboto',400,1rem,$colorBlack,5px); 
+    } 
+}
+#formatos {
+    a {
+        color: $colorWhite;
+        width: 100%;
+        height:100%;
+        display: block;
+        &:hover{ 
+            color: $colorUno;
+            text-decoration: none;
+            transition-duration: 1s;
+        }
+        h2 {
+            @extend .sectionTitle;
+            font-size: 2.5rem;
+            &:hover{
+                color:$colorUno;
+                transition-duration: 1s;
+            }
+        }
+    }
+    #formatos-vinilos {
+        background-image: url(../images/vinilo.png);
+        background-size: 100%;
+        height: 300px;
+        transition-duration: 1s;
+        &:hover {
+            background-size: 120%;
+            transition-duration: 1s;
+        }
+}
+    #formatos-cds {
+        background-image: url(../images/cds.png);
+        background-size: 100%;
+        transition-duration: 1s;
+        height: 300px;
+        &:hover {
+            background-size: 120%;
+            transition-duration: 1s;
+        }
+    }
+    #formatos-cassettes {
+        background-image: url(../images/vinilo.png);
+        background-size: 100%;
+        transition-duration: 1s;
+        height: 300px;
+        &:hover {
+            background-size: 120%;
+            transition-duration: 1s;
+        }
+    }
+    .categoriaBlock {
+        display: block;
+        width: 100%;
+        height:100%;
+    }
+}
+#novedades {
+    margin-top: 20px;
+    .contenedor__novedades {
+        margin-left: 1rem;
+        margin-right: 1rem;
+        margin-top: 1rem;
+    }
+    .novedades__producto__nombre {
+        @include fontstyling('Roboto',500,1.1rem, $colorWhite, 0px);
+        margin-top: 10px;
+        span {
+            padding: 2px;
+        }
+    }
+    .novedades__producto__descripcion {
+        @include fontstyling('Roboto',400,1rem,$colorBlack,0px )
+    }
+}
+#comoComprar {
+    margin-top: 20px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    @include transparentBackgroundColor(0.2,$colorUno);
+    .comoComprar__texto {
+        display:flex;
+        flex-direction:column;
+        align-items:center;
+        justify-content:center;
+    }
+    p {
+        text-align: center;
+        font-size: 1.2rem;
+        margin-bottom: 50px;
+    }
+}

@@ -70,9 +70,9 @@ const traerCarrito = () => {
     let span = badge.childNodes[0];
     span.nodeValue = carritoGuardado.length;
     contenedorCarrito.removeChild(carritoVacio);
-        for ( let boton of botonesEnvio){
-            boton.disabled = false;
-        }
+    for ( let boton of botonesEnvio){
+           boton.disabled = false;
+       }
         botonCompraCarrito.disabled = false;
     }
  }
@@ -105,7 +105,7 @@ function Productos (nombreProducto, precioProducto, stockProducto, imgProducto, 
             let badge = document.getElementById("itemCarrito");
             let span = badge.childNodes[0];
             span.nodeValue = carrito.length;
-            // muestra una alerta que confirma que el producto fue agregado
+            //muestra una alerta que confirma que el producto fue agregado
             let contenedor = document.getElementById(`cardBody_${this.nombreProducto}`);
             let alerta = document.createElement("div");
             alerta.className = "alert alert-success";
@@ -270,48 +270,26 @@ envios.push(new Envio("Envío Rápido", 600, "Envío a todo el país. Demora: 1-
 
 //crea una tarjeta por cada tipo de envio del array envios y la inserta en el modal de carrito
 envios.forEach( envio => {
-    let col = document.createElement("div");
-    col.className = "col";
-    contenedorEnvios.appendChild(col);
-    let card = document.createElement("div");
-    card.className = "card h-100 text-white bg-secondary";
-    card.id = envio.tipoEnvio;
-    col.appendChild(card);
-    let cardBody = document.createElement("div");
-    cardBody.className = "card-body d-flex flex-column";
-    cardBody.id = `cardBody_${envio.tipoEnvio}`;
-    card.appendChild(cardBody);
-    let cardTitle = document.createElement("h5");
-    cardTitle.className = "card-title";
-    cardTitle.textContent = envio.tipoEnvio;
-    cardBody.appendChild(cardTitle);
-    let cardText = document.createElement("p");
-    cardText.className = "card-text mt-auto";
-    cardText.textContent = envio.descripcionEnvio;
-    cardBody.appendChild(cardText);
-    let cardPrice = document.createElement("p");
-    cardPrice.className = "fw-bold mt-auto";
-    cardPrice.textContent = `Precio: $${envio.precioEnvio}`
-    cardBody.appendChild(cardPrice);
-    let cardButton = document.createElement("button");
-    cardButton.className = "btn btn-friki botonEnvio";
-    cardButton.id = `button_${envio.tipoEnvio}`;
-    cardButton.textContent = "LO QUIERO";
-    cardBody.appendChild(cardButton);
-    //cardButton.className = "btn btn-dark mt-auto botonEnvio";
-    //cardButton.id = `button_${envio.tipoEnvio}`;
-    //cardButton.type = "button";
-    //cardButton.textContent = "LO QUIERO";
-    //cardBody.appendChild(cardButton);
+    $("#containerEnvios").append(
+            `<div class="col">
+                <div class="card h-100 text-white bg-secondary" id="${envio.tipoEnvio}">
+                    <div class="card-body d-flex flex-column" id="cardBody_${envio.tipoEnvio}">
+                        <h5 class="card-title">${envio.tipoEnvio}</h5>
+                        <p class="card-text mt-auto">${envio.descripcionEnvio}</p>
+                        <p class="fw-bold mt-auto">Precio: $${envio.precioEnvio}</p>
+                        <button class="btn btn-friki botonEnvio" id="button_${envio.tipoEnvio}">LO QUIERO</button>
+                    </div>
+                </div>
+            </div>`
+        )
     }
 );
-
-
 // trackeo de botones de envio
-let botonesEnvio = document.querySelectorAll(".botonEnvio");
+let botonesEnvio = $(".botonEnvio")
+
+botonesEnvio.click( envioElegir );
 
 for ( let boton of botonesEnvio){
-    boton.addEventListener( "click" , envioElegir )
     boton.disabled = true;
 }
 
@@ -321,6 +299,7 @@ botonCompraCarrito.disabled = true;
 
 //Función que determina cuál es el envío elegido y llama a la función elegir envio
 function envioElegir (e){
+    console.log(e.target)
     let hijo = e.target;
     let padre = hijo.parentNode.parentNode;
     let envioCarrito = padre.querySelector("h5").textContent;

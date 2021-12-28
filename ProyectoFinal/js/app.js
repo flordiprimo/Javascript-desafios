@@ -79,12 +79,13 @@ const traerCarrito = () => {
 }
 
 //Función para crear objetos dentro del array productos y métodos del objeto producto.
-function Productos (nombreProducto, precioProducto, stockProducto, imgProducto, descripcionProducto) {
+function Productos (nombreProducto, precioProducto, stockProducto, imgProducto, descripcionProducto, releaseID) {
     this.nombreProducto = nombreProducto;
     this.precioProducto = precioProducto;
     this.stockProducto = stockProducto;
     this.imgProducto = imgProducto;
     this.descripcionProducto = descripcionProducto;
+    this.releaseID = releaseID;
     //funcion para agregar productos al carrito checkeando stock y descontando stock
     this.agregar = function() {
         if (this.stockProducto > 0){
@@ -107,11 +108,8 @@ function Productos (nombreProducto, precioProducto, stockProducto, imgProducto, 
             span.nodeValue = carrito.length;
             //muestra una alerta que confirma que el producto fue agregado
             let contenedor = document.getElementById(`cardBody_${this.nombreProducto}`);
-            let alerta = document.createElement("div");
-            alerta.className = "alert alert-success";
-            alerta.role = "alert";
-            alerta.textContent = "Producto agregado al carrito.";
-            contenedor.insertBefore(alerta, contenedor.childNodes[3]);
+            $(`<div class="alert alert-success" role="alert" id="alert_${this.nombreProducto}">Producto agregado al carrito.</div>`).appendTo(contenedor).fadeIn(200).delay(1000).fadeOut(500);
+
             // chequea cantidad de productos en carrito y remueve alerta si es mayor a 1
             if (carrito.length == 1) {
                 contenedorCarrito.removeChild(carritoVacio);
@@ -154,62 +152,101 @@ function Productos (nombreProducto, precioProducto, stockProducto, imgProducto, 
         botonProducto.disabled = "true";
         botonProducto.textContent = "SIN STOCK";
 }
+    this.masInfo = function(){
+        //CONEXIÓN A LA API DE DISCOGS PARA BUSCAR LA INFO DE LA EDICIÓN
+        let apiKey = "&token=BiFqmvtmZCztyNIOluyGTEuRUDrzsZXCBMyrvYUW";
+        let url = "https://api.discogs.com//database/search?";
+        let query = `release_id=${this.releaseID}`;
+        let urlBusqueda = url+query+apiKey;
+        $.get(urlBusqueda, function(release){
+            console.log(release.results[0])
+            let pais = release.results[0].country;
+            let anio = release.results[0].year;
+            let codigoBarras = release.results[0].barcode[0];
+            let numeroCatalogo = release.results[0].catno;
+            let sello = release.results[0].label[0];
+            let link = "http://www.discogs.com" + release.results[0].uri;
+            let urlBusqueda2 = release.results[0].master_url;
+            console.log(`Pais: ${pais}
+                        Año: ${anio}
+                        Código de barras: ${codigoBarras}
+                        Número de catálogo: ${numeroCatalogo}
+                        Sello(s): ${sello}
+                        Más información: ${link}`)
+            $.get(urlBusqueda2, function (masterRelease){
+                console.log(masterRelease);
+                console.log(masterRelease.artists[0]);
+                console.log(masterRelease.title);
+                console.log(masterRelease.year);
+                console.log(masterRelease.tracklist)
+            })
+            let infoProducto = document.getElementById(`infoDiscogs_${this.nombreProducto}`)
+            console.log(infoProducto)
+        });
+    }
 }
 
 // Array de productos
 const productos = [];
-productos.push(new Productos("The Velvet Underground & Nico", 5200, 2, "../images/velvet_banana.png", "Descripción producto"));
-productos.push(new Productos("Blur - Blur", 5000, 1, "../images/Blur-blur.png", "Descripción producto"));
-productos.push(new Productos("The Stone Roses - The Stone Roses", 4500, 1, "../images/stone-roses.png", "Descripción producto"));
-productos.push(new Productos("Arcade Fire - Neon Bible", 5600, 1, "../images/arcade-fire-neon-bible.png", "Descripción producto"));
-productos.push(new Productos("Daft Punk - Random Access Memories", 6500, 1, "../images/daft-punk-ram.png", "Descripción producto"));
-productos.push(new Productos("DIIV - Is The Is Are", 5500, 1, "../images/diiv-is-the-is-are.png", "Descripción producto"));
-productos.push(new Productos("Black Marble - Fast Idol", 5800, 1, "../images/Black marble fast idol.png", "Descripción producto"));
-productos.push(new Productos("Daft Punk - Daft Club", 5600, 1, "../images/daft-club.png", "Descripción producto"));
-productos.push(new Productos("Dinosaur Jr. - Sweep it into Space", 6000, 1, "../images/dinosaur jr sweep it into space.png", "Descripción producto"));
-productos.push(new Productos("Molchat Doma - Etazhi", 5800, 1, "../images/molchat doma etazhi.png", "Descripción producto"));
-productos.push(new Productos("Pixies - Indie Cindy", 5400, 1, "../images/pixies.png", "Descripción producto"));
-productos.push(new Productos("Tame Impala - Currents", 5900, 1, "../images/tame-impala-currents.png", "Descripción producto"));
+productos.push(new Productos("The Velvet Underground & Nico", 5200, 2, "../images/velvet_banana.png", "Descripción producto", "21428521"));
+productos.push(new Productos("Blur - Blur", 5000, 1, "../images/Blur-blur.png", "Descripción producto", "15875347"));
+productos.push(new Productos("The Stone Roses - The Stone Roses", 4500, 1, "../images/stone-roses.png", "Descripción producto", "11638787"));
+productos.push(new Productos("Arcade Fire - Neon Bible", 5600, 1, "../images/arcade-fire-neon-bible.png", "Descripción producto", "11212072"));
+productos.push(new Productos("Daft Punk - Random Access Memories", 6500, 1, "../images/daft-punk-ram.png", "Descripción producto", "19574308"));
+productos.push(new Productos("DIIV - Is The Is Are", 5500, 1, "../images/diiv-is-the-is-are.png", "Descripción producto", "8040863"));
+productos.push(new Productos("Black Marble - Fast Idol", 5800, 1, "../images/Black marble fast idol.png", "Descripción producto", "20690938"));
+productos.push(new Productos("Daft Punk - Daft Club", 5600, 1, "../images/daft-club.png", "Descripción producto", "5904055"));
+productos.push(new Productos("Dinosaur Jr. - Sweep it into Space", 6000, 1, "../images/dinosaur jr sweep it into space.png", "Descripción producto", "18280303"));
+productos.push(new Productos("Molchat Doma - Etazhi", 5800, 1, "../images/molchat doma etazhi.png", "Descripción producto", "20103439"));
+productos.push(new Productos("Pixies - Indie Cindy", 5400, 1, "../images/pixies.png", "Descripción producto", "5781271"));
+productos.push(new Productos("Tame Impala - Currents", 5900, 1, "../images/tame-impala-currents.png", "Descripción producto", "7252111"));
 
 //crea una tarjeta de producto por cada producto del array productos en el catálogo
 productos.forEach( producto => {
-        let col = document.createElement("div");
-        col.className = "col-6 col-sm-6 col-md-4 col-lg-3 col-xl-2 mb-2 mt-2";
-        contenedorProductos.appendChild(col);
-        let card = document.createElement("div");
-        card.className = "card h-100";
-        card.id = producto.nombreProducto;
-        col.appendChild(card);
-        let cardImg = document.createElement("img");
-        cardImg.className = "card-img-top";
-        cardImg.id = `img_${producto.nombreProducto}`;
-        cardImg.src = producto.imgProducto;
-        cardImg.alt = producto.nombreProducto;
-        card.appendChild(cardImg);
-        let cardBody = document.createElement("div");
-        cardBody.className = "card-body d-flex flex-column";
-        cardBody.id = `cardBody_${producto.nombreProducto}`;
-        card.appendChild(cardBody);
-        let cardTitle = document.createElement("h5");
-        cardTitle.className = "card-title producto__nombre text-black mt-2";
-        cardTitle.textContent = producto.nombreProducto;
-        cardBody.appendChild(cardTitle);
-        let cardText = document.createElement("p");
-        cardText.className = "card-text mt-auto";
-        cardText.textContent = producto.descripcionProducto;
-        cardBody.appendChild(cardText);
-        let cardPrice = document.createElement("p");
-        cardPrice.className = "fw-bold mt-auto precio";
-        cardPrice.textContent = `Precio: $${producto.precioProducto}`
-        cardBody.appendChild(cardPrice);
-        let cardButton = document.createElement("button");
-        cardButton.className = "btn btn-friki mt-auto botonComprar";
-        cardButton.id = `button_${producto.nombreProducto}`;
-        cardButton.type = "button";
-        cardButton.textContent = "LO QUIERO";
-        cardBody.appendChild(cardButton);
-        }
-);
+        //Tarjeta de contenido producto
+        
+        $("#containerProductos").append(
+            `<div class="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-2 mb-2 mt-2">
+                <div class="card h-100" id="${producto.nombreProducto}">
+                    <img class="card-img-top" id="img_${producto.nombreProducto}" src="${producto.imgProducto}" alt="${producto.nombreProducto}">
+                    <div class="card-body d-flex flex-column" id="cardBody_${producto.nombreProducto}">
+                        <h5 class="card-title producto__nombre text-black mt-2">${producto.nombreProducto}</h5>
+                        <p class="card-text mt-auto">${producto.descripcionProducto}</p>
+                        <p class="w-bold mt-auto precio">$${producto.precioProducto}</p>
+                            <button class="btn btn-secondary mt-auto botonInfo mb-2" id="masinfo_${producto.releaseID}" type="button" data-bs-toggle="modal" data-bs-target="#Modal${producto.releaseID}">MAS INFO</button>
+                            <button class="btn btn-friki mt-auto botonComprar" id="button_${producto.nombreProducto}" type="button">LO QUIERO</button>
+                    </div>
+                </div>
+            </div>`
+        )
+        //MODAL DE MAS INFO SOBRE EL PRODUCTO/EDICION
+        $("body").append(
+            `<div class="modal fade" id="Modal${producto.releaseID}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Acerca de este disco</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <h3>${producto.nombreProducto}</h3>
+                        <img src="${producto.imgProducto}" class="img-fluid">
+                        <h5 class="mt-3">Información sobre el disco</h5>
+                        <div id="infoDisco_${producto.nombreProducto}">
+                        </div>
+                        <h5 class="mt-3">Información sobre esta edición</h5>
+                        <div id="infoEdicion_${producto.nombreProducto}">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    </div>
+                    </div>
+                </div>
+            </div>`
+        )
+
+    });
 
 // checkea el stock inicial de objetos producto y llama al método sinStock si algun producto no tiene
 productos.forEach( producto => {
@@ -241,7 +278,110 @@ function elegirProd ( producto ){
     productos[indexEncontrado].agregar(); 
 }
 
+// trackeo de botones info
+let botonesInfo = document.querySelectorAll(".botonInfo");
 
+for ( let boton of botonesInfo){
+    boton.addEventListener( "click" , productoInfo )
+}
+
+function productoInfo(e){
+    let hijo = e.target;
+    let padre = hijo.parentNode.parentNode;
+    let productoparaInfo = padre.querySelector("h5").textContent;
+    let encontrado = productos.find( elemento => elemento.nombreProducto === productoparaInfo)
+    let producto = encontrado.nombreProducto;
+    let releaseID = encontrado.releaseID;
+    //CONEXIÓN A LA API DE DISCOGS PARA BUSCAR LA INFO DE LA EDICIÓN
+    let apiKey = "&token=BiFqmvtmZCztyNIOluyGTEuRUDrzsZXCBMyrvYUW";
+    let url = "https://api.discogs.com//database/search?";
+    let query = `release_id=${releaseID}`;
+    let urlBusqueda = url+query+apiKey;
+    $.get(urlBusqueda, function(release){
+        console.log(release.results[0])
+        let urlBusqueda2 = release.results[0].master_url;
+        $.get(urlBusqueda2, function (masterRelease){
+            console.log(masterRelease.artists[0].name);
+            console.log(masterRelease.title);
+            console.log(masterRelease.year);
+            console.log(masterRelease.tracklist)
+            let tablaInfo = document.createElement("table");
+            tablaInfo.classList = "table"
+            tablaInfo.innerHTML = `<tbody>
+                <tr>
+                    <th scope="row">Artista:</th>
+                    <td>${masterRelease.artists[0].name}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Título:</th>
+                    <td>${masterRelease.title}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Año de lanzamiento:</th>
+                    <td>${masterRelease.year}</td>
+                </tr>`
+            let contenedorDisco = document.getElementById(`infoDisco_${producto}`)
+            contenedorDisco.innerHTML = "";
+            contenedorDisco.appendChild(tablaInfo);
+        });
+        let contenedorEdicion = document.getElementById(`infoEdicion_${producto}`)
+        contenedorEdicion.innerHTML = "";
+        console.log(release.results[0])
+        let pais = release.results[0].country;
+        let anio = release.results[0].year;
+        let codigoBarras = release.results[0].barcode[0];
+        let numeroCatalogo = release.results[0].catno;
+        let sello = release.results[0].label[0];
+        let link = "http://www.discogs.com" + release.results[0].uri;
+        let tablaEdicion = document.createElement("table")
+        tablaEdicion.classList = "table";
+        tablaEdicion.innerHTML = `<tbody>
+                <tr>
+                    <th scope="row">Pais/Region:</th>
+                    <td>${pais}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Año de la edición:</th>
+                    <td>${anio}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Código de barras:</th>
+                    <td>${codigoBarras}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Número de catálogo:</th>
+                    <td>${numeroCatalogo}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Sello(s):</th>
+                    <td>${sello}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Más información:</th>
+                    <td><a href="${link}" target="_blank">Ver en Discogs</a></td>
+                </tr>`
+        contenedorEdicion.appendChild(tablaEdicion);
+    });
+    
+}
+
+
+
+/*
+//Función que determina cuál es el boton info clickeado y obtiene la info para el modal
+function productoInfo (e){
+    let hijo = e.target;
+    let padre = hijo.parentNode.parentNode;
+    let productoparaInfo = padre.querySelector("h5").textContent;
+    infoProd(productoparaInfo)
+    }
+// Función que comprueba el producto elegido en el array productos y ejecuta el método masinfo
+function infoProd ( producto ){
+    let encontrado = productos.find( elemento => elemento.nombreProducto === producto)
+    let indexEncontrado = productos.indexOf(encontrado);
+    productos[indexEncontrado].masInfo(); 
+}
+*/
 // funcion para crear objetos dentro del array envios y métodos del objeto envio.
 function Envio (tipoEnvio, precioEnvio , descripcionEnvio) {
     this.tipoEnvio = tipoEnvio;
@@ -328,3 +468,5 @@ function colorear(){
 }
 
 traerCarrito();
+
+

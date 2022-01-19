@@ -1,7 +1,7 @@
-
-let carrito = [];
+const carrito = [];
 let carritoGuardado = [];
-let itemsCarrito = carrito.length;
+let itemsCarrito = carrito.reduce(function(anterior, actual){
+    return anterior + actual.cantidad;}, 0);
 let contenedorCarrito = document.getElementById("productosCarrito");
 let tituloCarrito = document.createElement("h4");
 tituloCarrito.textContent ="Productos";
@@ -12,15 +12,16 @@ carritoVacio.className = "alert alert-warning";
 carritoVacio.role = "alert";
 carritoVacio.textContent = "No hay productos agregados al carrito.";
 contenedorCarrito.appendChild(carritoVacio);
+//setea por defecto el subtotal en cero
 let subtotal = 0;
 let subtotalCarrito = document.getElementById("subtotal");
 let contenidoSubtotal = document.createElement("h6");
 contenidoSubtotal.classList = "mt-2";
 contenidoSubtotal.textContent =`Subtotal: $${subtotal}`;
 subtotalCarrito.appendChild(contenidoSubtotal)
-let contenidoEnvios = document.getElementById("envios");
 // envio elegido
 let envioElegido = 0;
+let contenidoEnvios = document.getElementById("envios");
 // setea por defecto el total en cero
 let total = 0;
 let totalCarrito = document.getElementById("total");
@@ -41,34 +42,51 @@ const traerCarrito = () => {
     if (carritoGuardado.length > 0) {
     carritoGuardado.forEach (producto => {
         carrito.push(producto);
+        let subtotalProd = producto.precio * producto.cantidad;
+        producto.subtotalProducto = subtotalProd;
         let productoenCarrito = document.createElement("div");
             productoenCarrito.classList = "container-fluid";
             productoenCarrito.innerHTML = `<div class="row border-bottom" id="enCarrito_${producto.nombre}">
                                             <div class="col-3 mt-2 mb-2"><img src="${producto.imagen}" alt="${producto.nombre}" class="img-fluid"></div>
                                             <div class="col-6">
                                                 <h5>${producto.nombre}</h5>
-                                                <p>${producto.descripcion}</p>
+                                                <p class="mb-1">${producto.descripcion}</p>
+                                                <p class="mb-1">Cantidad: <span id="cantidad_${producto.nombre}">${producto.cantidad}</span></p>
+                                                <p class="mb-1">Precio: $${producto.precio}</p>
                                             </div>
                                             <div class="col-3 text-end">
-                                                <p>$${producto.precio}</p>
+                                                <p id="subtotalProd_${producto.nombre}">$${subtotalProd}</p>
                                             </div>`
-            subtotal += producto.precio;
-            total += producto.precio;
+            subtotal += subtotalProd;
+            total += subtotalProd;
             localStorage.setItem( "Total", total);
             contenedorCarrito.appendChild(productoenCarrito);
             contenidoSubtotal.textContent =`Subtotal: $${subtotal}`;
             contenidoTotal.textContent = `Total: $${total}`;
         //Busca el nombre del producto en el carrito y descuenta stock en el array productos
         let encontrado = productos.find( elemento => elemento.nombreProducto === producto.nombre)
-        console.log("stock antes: " + encontrado.stockProducto);
-        encontrado.stockProducto -= 1;
-        console.log("stock despues: " + encontrado.stockProducto);
+        encontrado.stockProducto -= encontrado.cantidad;
         encontrado.sinStock();
+        //actualizo el carritoJSON y lo guardo en el local storage
+        let carritoJSON = JSON.stringify( carrito );
+        localStorage.setItem ("carritoUsuario", carritoJSON );
             }
         )
+    // busca el envio elegido y lo selecciona, actualizando el total
+    let envioGuardado = envios.find(elemento => elemento.precioEnvio === JSON.parse(localStorage.getItem("Envio")))
+    if (envioGuardado != undefined) {
+    let tarjeta = document.getElementById(envioGuardado.tipoEnvio);
+            tarjeta.className = "card h-100 text-white bg-uno";
+    total += envioGuardado.precioEnvio;
+    localStorage.setItem( "Total", total);
+    contenidoTotal.textContent = `Total: $${total}`;
+    }
+
+    // modificar el numero de items en el carrito en la barra de navegacion
     let badge = document.getElementById("itemCarrito");
     let span = badge.childNodes[0];
-    span.nodeValue = carritoGuardado.length;
+    span.nodeValue = carritoGuardado.reduce(function(anterior, actual){
+        return anterior + actual.cantidad;}, 0);
     contenedorCarrito.removeChild(carritoVacio);
     for ( let boton of botonesEnvio){
            boton.disabled = false;
@@ -89,61 +107,89 @@ function Productos (nombreProducto, precioProducto, stockProducto, imgProducto, 
     //funcion para agregar productos al carrito checkeando stock y descontando stock
     this.agregar = function() {
         if (this.stockProducto > 0){
-            //creo un objeto y lo mando al array carrito
-            let item = {
-                nombre: this.nombreProducto,
-                precio: this.precioProducto,
-                imagen: this.imgProducto,
-                descripcion: this.descripcionProducto,
-                cantidad: 1
-            }
-            carrito.push(item);
-            let carritoJSON = JSON.stringify( carrito );
-            localStorage.setItem ("carritoUsuario", carritoJSON );
             //actualizo el stock
             this.stockProducto -= 1;
-            // modificar el numero de items en el carrito en la barra de navegacion
-            let badge = document.getElementById("itemCarrito");
-            let span = badge.childNodes[0];
-            span.nodeValue = carrito.length;
-            //muestra una alerta que confirma que el producto fue agregado
-            let contenedor = document.getElementById(`cardBody_${this.nombreProducto}`);
-            $(`<div class="alert alert-success" role="alert" id="alert_${this.nombreProducto}">Producto agregado al carrito.</div>`).appendTo(contenedor).fadeIn(200).delay(1000).fadeOut(500);
-
-            // chequea cantidad de productos en carrito y remueve alerta si es mayor a 1
-            if (carrito.length == 1) {
-                contenedorCarrito.removeChild(carritoVacio);
-                for ( let boton of botonesEnvio){
-                    boton.disabled = false;
-                }
-                botonCompraCarrito.disabled = false;
+            // Chequea si el producto ya existe en el carrito
+            let encontrado = carrito.find(item => item.nombre === this.nombreProducto && item.cantidad >= 1)
+            //Si el producto existe:
+            if(encontrado != undefined){
+                //actualizo la cantidad en el array carrito
+                encontrado.cantidad += 1;
+                let cantidadCarrito = document.getElementById(`cantidad_${this.nombreProducto}`);
+                // actualizo cantidad en el modal carrito
+                let span = cantidadCarrito.childNodes[0];
+                span.nodeValue = encontrado.cantidad;
+                // actualizo subtotal producto en el modal carrito
+                let subtotalProducto = this.precioProducto * encontrado.cantidad;
+                console.log(subtotalProducto)
+                let actualizarSubtotal = document.getElementById(`subtotalProd_${this.nombreProducto}`);
+                actualizarSubtotal.innerText = `$${subtotalProducto}`;
+                //actualizo el carritoJSON y lo guardo en el local storage
+                let carritoJSON = JSON.stringify( carrito );
+                localStorage.setItem ("carritoUsuario", carritoJSON );
             }
-            // crea y actualiza contenido dinámico en el modal de carrito
-            let productoenCarrito = document.createElement("div");
-            productoenCarrito.classList = "container-fluid";
-            productoenCarrito.innerHTML = `<div class="row border-bottom" id="enCarrito_${this.nombreProducto}">
+            //Si el producto no existe
+            else {
+                let item = {
+                    nombre: this.nombreProducto,
+                    precio: this.precioProducto,
+                    subtotalProducto: this.precioProducto,
+                    imagen: this.imgProducto,
+                    descripcion: this.descripcionProducto,
+                    cantidad: 1
+                }
+                //si es el primer producto agregado, saco alerta en el modal carrito y habilito botones de envio y compra.
+                if (carrito.length === 0) { 
+                    contenedorCarrito.removeChild(carritoVacio);
+                    for ( let boton of botonesEnvio){
+                        boton.disabled = false;
+                    }
+                    botonCompraCarrito.disabled = false;
+                    }
+                //mando el producto al array carrito
+                carrito.push(item);
+                //guardo el carrito en el local storage
+                let carritoJSON = JSON.stringify( carrito );
+                localStorage.setItem ("carritoUsuario", carritoJSON );
+                // crea y actualiza contenido dinámico en el modal de carrito
+                let productoenCarrito = document.createElement("div");
+                productoenCarrito.classList = "container-fluid";
+                productoenCarrito.innerHTML = `<div class="row border-bottom" id="enCarrito_${this.nombreProducto}">
                                             <div class="col-3 mt-2 mb-2"><img src="${this.imgProducto}" alt="${this.nombreProducto}" class="img-fluid"></div>
                                             <div class="col-6">
                                                 <h5>${this.nombreProducto}</h5>
-                                                <p>${this.descripcionProducto}</p>
+                                                <p class="mb-1">${this.descripcionProducto}</p>
+                                                <p class="mb-1">Cantidad: <span id="cantidad_${this.nombreProducto}">${item.cantidad}</span></p>
+                                                <p class="mb-1">Precio: $${this.precioProducto}</p>
                                             </div>
                                             <div class="col-3 text-end">
-                                                <p>$${this.precioProducto}</p>
+                                                <p id="subtotalProd_${this.nombreProducto}">$${this.precioProducto}</p>
                                             </div>`
+            contenedorCarrito.appendChild(productoenCarrito);
+            }
+            // actualizo subtotal y total de la compra y lo guardo en el local storage
             subtotal += this.precioProducto;
             total += this.precioProducto;
+            console.log(total)
             localStorage.setItem( "Total", total);
-            contenedorCarrito.appendChild(productoenCarrito);
             contenidoSubtotal.textContent =`Subtotal: $${subtotal}`;
             contenidoTotal.textContent = `Total: $${total}`;
+            // si el stock del producto es 0 al finalizar el agregado, ejecuto el método sin stock
             if (this.stockProducto == 0) {
                 this.sinStock();
             }
-        }
-        else {
-            console.log ("no hay stock");
+            // Modificar el numero de items en el carrito en la barra de navegacion
+            itemsCarrito = carrito.reduce(function(anterior, actual){
+                return anterior + actual.cantidad;}, 0);
+            let badge = document.getElementById("itemCarrito");
+            let span = badge.childNodes[0];
+                span.nodeValue = itemsCarrito;
+            //muestra una alerta que confirma que el producto fue agregado
+            let contenedor = document.getElementById(`cardBody_${this.nombreProducto}`);
+            $(`<div class="alert alert-success" role="alert" id="alert_${this.nombreProducto}">Producto agregado al carrito.</div>`).appendTo(contenedor).fadeIn(200).delay(1000).fadeOut(500);
         }
     }
+    //método que modifica el contenido de la tarjeta de producto cuando está sin stock y deshabilita el boton para agregarlo
     this.sinStock = function() {
         let imagenProducto = document.getElementById(`img_${this.nombreProducto}`);
         imagenProducto.style.opacity = "50%";
@@ -152,38 +198,6 @@ function Productos (nombreProducto, precioProducto, stockProducto, imgProducto, 
         botonProducto.disabled = "true";
         botonProducto.textContent = "SIN STOCK";
 }
-    this.masInfo = function(){
-        //CONEXIÓN A LA API DE DISCOGS PARA BUSCAR LA INFO DE LA EDICIÓN
-        let apiKey = "&token=BiFqmvtmZCztyNIOluyGTEuRUDrzsZXCBMyrvYUW";
-        let url = "https://api.discogs.com//database/search?";
-        let query = `release_id=${this.releaseID}`;
-        let urlBusqueda = url+query+apiKey;
-        $.get(urlBusqueda, function(release){
-            console.log(release.results[0])
-            let pais = release.results[0].country;
-            let anio = release.results[0].year;
-            let codigoBarras = release.results[0].barcode[0];
-            let numeroCatalogo = release.results[0].catno;
-            let sello = release.results[0].label[0];
-            let link = "http://www.discogs.com" + release.results[0].uri;
-            let urlBusqueda2 = release.results[0].master_url;
-            console.log(`Pais: ${pais}
-                        Año: ${anio}
-                        Código de barras: ${codigoBarras}
-                        Número de catálogo: ${numeroCatalogo}
-                        Sello(s): ${sello}
-                        Más información: ${link}`)
-            $.get(urlBusqueda2, function (masterRelease){
-                console.log(masterRelease);
-                console.log(masterRelease.artists[0]);
-                console.log(masterRelease.title);
-                console.log(masterRelease.year);
-                console.log(masterRelease.tracklist)
-            })
-            let infoProducto = document.getElementById(`infoDiscogs_${this.nombreProducto}`)
-            console.log(infoProducto)
-        });
-    }
 }
 
 // Array de productos
@@ -365,23 +379,6 @@ function productoInfo(e){
     
 }
 
-
-
-/*
-//Función que determina cuál es el boton info clickeado y obtiene la info para el modal
-function productoInfo (e){
-    let hijo = e.target;
-    let padre = hijo.parentNode.parentNode;
-    let productoparaInfo = padre.querySelector("h5").textContent;
-    infoProd(productoparaInfo)
-    }
-// Función que comprueba el producto elegido en el array productos y ejecuta el método masinfo
-function infoProd ( producto ){
-    let encontrado = productos.find( elemento => elemento.nombreProducto === producto)
-    let indexEncontrado = productos.indexOf(encontrado);
-    productos[indexEncontrado].masInfo(); 
-}
-*/
 // funcion para crear objetos dentro del array envios y métodos del objeto envio.
 function Envio (tipoEnvio, precioEnvio , descripcionEnvio) {
     this.tipoEnvio = tipoEnvio;
@@ -407,6 +404,9 @@ const envios = [];
 envios.push(new Envio("Retiro por el local", 0, "Pasá a retirar tu disco por el local."));
 envios.push(new Envio("Envío Estándar", 300, "Envío a todo el país. Demora: 5-7 días hábiles."));
 envios.push(new Envio("Envío Rápido", 600, "Envío a todo el país. Demora: 1-2 días hábiles."));
+
+const enviosJSON = JSON.stringify(envios)
+localStorage.setItem("OpcionesEnvio", enviosJSON);
 
 //crea una tarjeta por cada tipo de envio del array envios y la inserta en el modal de carrito
 envios.forEach( envio => {
@@ -439,7 +439,6 @@ botonCompraCarrito.disabled = true;
 
 //Función que determina cuál es el envío elegido y llama a la función elegir envio
 function envioElegir (e){
-    console.log(e.target)
     let hijo = e.target;
     let padre = hijo.parentNode.parentNode;
     let envioCarrito = padre.querySelector("h5").textContent;
@@ -455,7 +454,7 @@ function elegirEnvio ( envio ){
 
 // recorre el arreglo para colorear la tarjeta del envio elegido y volver a gris las otras
 function colorear(){
-    for ( envio of envios ) {
+    envios.forEach( envio => {
         if (envio.precioEnvio == envioElegido) {
         let tarjeta = document.getElementById(envio.tipoEnvio);
         tarjeta.className = "card h-100 text-white bg-uno";
@@ -464,9 +463,9 @@ function colorear(){
         let tarjeta = document.getElementById(envio.tipoEnvio);
         tarjeta.className = "card h-100 text-white bg-secondary";
         }
-    }
+    })
 }
 
 traerCarrito();
-
-
+itemsCarrito = carrito.reduce(function(anterior, actual){
+    return anterior + actual.cantidad;}, 0);

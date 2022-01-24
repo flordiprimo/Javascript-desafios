@@ -1,0 +1,110 @@
+[
+    {
+        "nombreProducto": "The Velvet Underground & Nico",
+        "descripcionProducto": "Vinilo 12 pulg.",
+        "imagenProducto": "images/velvet_banana.png",
+        "releaseID": 21428521,
+        "precioProducto": 5200,
+        "stockProducto": 2,
+        "isNovedad": false
+    },
+    {
+        "nombreProducto": "Blur - Blur",
+        "descripcionProducto": "Vinilo 12 pulg.",
+        "imagenProducto": "images/Blur-blur.png",
+        "releaseID": 15875347,
+        "precioProducto": 5000,
+        "stockProducto": 1,
+        "isNovedad": true
+    },
+    {
+        "nombreProducto": "The Stone Roses - The Stone Roses",
+        "descripcionProducto": "Vinilo 12 pulg.",
+        "imagenProducto": "images/stone-roses.png",
+        "releaseID": 11638787,
+        "precioProducto": 4500,
+        "stockProducto": 1,
+        "isNovedad": false
+    },
+    {
+        "nombreProducto": "Arcade Fire - Neon Bible",
+        "descripcionProducto": "Vinilo 12 pulg. doble",
+        "imagenProducto": "images/arcade-fire-neon-bible.png",
+        "releaseID": 11212072,
+        "precioProducto": 5600,
+        "stockProducto": 1,
+        "isNovedad": true
+    },
+    {
+        "nombreProducto": "Daft Punk - Random Access Memories",
+        "descripcionProducto": "Vinilo 12 pulg. doble",
+        "imagenProducto": "images/daft-punk-ram.png",
+        "releaseID": 19574308,
+        "precioProducto": 6500,
+        "stockProducto": 1,
+        "isNovedad": false
+    },
+    {
+        "nombreProducto": "DIIV - Is The Is Are",
+        "descripcionProducto": "Vinilo 12 pulg. doble",
+        "imagenProducto": "images/diiv-is-the-is-are.png",
+        "releaseID": 8040863,
+        "precioProducto": 5500,
+        "stockProducto": 1,
+        "isNovedad": true
+    },
+    {
+        "nombreProducto": "Black Marble - Fast Idol",
+        "descripcionProducto": "Vinilo 12 pulg.",
+        "imagenProducto": "images/Black marble fast idol.png",
+        "releaseID": 20690938,
+        "precioProducto": 5800,
+        "stockProducto": 1,
+        "isNovedad": true
+    },
+    {
+        "nombreProducto": "Daft Punk - Daft Club",
+        "descripcionProducto": "Vinilo 12 pulg. doble",
+        "imagenProducto": "images/daft-club.png",
+        "releaseID": 5904055,
+        "precioProducto": 5600,
+        "stockProducto": 1,
+        "isNovedad": false
+    },
+    {
+        "nombreProducto": "Dinosaur Jr. - Sweep it into Space",
+        "descripcionProducto": "Vinilo 12 pulg. color",
+        "imagenProducto": "images/dinosaur jr sweep it into space.png",
+        "releaseID": 18280303,
+        "precioProducto": 6000,
+        "stockProducto": 1,
+        "isNovedad": false
+    },
+    {
+        "nombreProducto": "Molchat Doma - Etazhi",
+        "descripcionProducto": "Vinilo 12 pulg. color",
+        "imagenProducto": "images/molchat doma etazhi.png",
+        "releaseID": 20103439,
+        "precioProducto": 5800,
+        "stockProducto": 1,
+        "isNovedad": false
+    },
+    {
+        "nombreProducto": "Pixies - Indie Cindy",
+        "descripcionProducto": "Vinilo 12 pulg.",
+        "imagenProducto": "images/pixies.png",
+        "releaseID": 5781271,
+        "precioProducto": 5400,
+        "stockProducto": 1,
+        "isNovedad": false
+    },
+    {
+        "nombreProducto": "Tame Impala - Currents",
+        "descripcionProducto": "Vinilo 12 pulg. doble",
+        "imagenProducto": "images/tame-impala-currents.png",
+        "releaseID": 7252111,
+        "precioProducto": 5900,
+        "stockProducto": 1,
+        "isNovedad": false
+    }
+]

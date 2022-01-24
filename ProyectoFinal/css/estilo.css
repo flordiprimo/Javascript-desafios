@@ -143,6 +143,20 @@ footer a {
   .link__texto:hover {
     color: #77d0b8; }
 
+.cantidad {
+  text-align: center; }
+
+/* Deshabilitar las flechitas del input type number para las cantidades del modal carrito
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0; }
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield; }
+
 #destacado {
   background-image: url(../images/destacado_velvet.png);
   background-position: center;

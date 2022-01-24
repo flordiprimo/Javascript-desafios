@@ -15,12 +15,48 @@
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="css/estilo.css">
     <script src="https://kit.fontawesome.com/815a8cfff1.js" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <title>Friki Discos - Tienda de Música Independiente</title>
+    <base href="pages/"/>
 </head>
 <body>
+            <!-- Modal Ver Carrito-->
+            <div class="modal fade" id="verCarrito" tabindex="-1" aria-labelledby="verCarritoLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="verCarritoLabel">Mi carrito</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body" id="contenidoCarrito">
+                    <div id="productosCarrito">
+                    <!--Acá se  inserta dinámicamente el contenido del carrito-->
+                    </div>
+                    <div id="subtotal">
+                      <!--Acá se  inserta dinámicamente el subtotal del carrito (sin el envio)-->            
+                    </div>
+                    <div id="envios">
+                      <h4>Elegí un método de envío</h4>
+                      <div class="row row-cols-3 row-cols-md-3 g-3" id="containerEnvios">
+                        <!--Acá se  insertan dinámicamente los tipos de envio para elegir-->   
+                      </div>
+                    </div>
+                    <div id="total">
+                      <!--Acá se  inserta dinámicamente el total del carrito (incluyendo envio)-->   
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" id="vaciar">Vaciar carrito</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Seguir Comprando</button>
+                    <button type="button" class="btn btn-friki" id="botonCompraCarrito">Comprar</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Finaliza Modal Ver Carrito-->
         <nav class="navbar navbar-expand-lg navbar-dark sticky-top bg-black">
-            <a class="navbar-brand" href="index.html">
-                <img src="images/logofriki.png" alt="Friki Discos" width="100" height="auto">
+            <a class="navbar-brand" href="../index.html">
+                <img src="../images/logofriki.png" alt="Friki Discos" width="100" height="auto">
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
@@ -29,22 +65,22 @@
             <div class="collapse navbar-collapse" id="navbar">
               <ul class="navbar-nav mr-auto">
                 <li class="nav-item active nav-friki-item nav-friki-item-active">
-                  <a class="nav-link" href="index.html">HOME<span class="sr-only">(current)</span></a>
+                  <a class="nav-link" href="../index.html">HOME<span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item nav-friki-item">
-                    <a class="nav-link" href="pages/destacado.html">DESTACADO</a>
+                    <a class="nav-link" href="destacado.html">DESTACADO</a>
                   </li>
                 <li class="nav-item nav-friki-item">
-                  <a class="nav-link" href="pages/catalogo.html">CATÁLOGO</a>
+                  <a class="nav-link" href="catalogo.html">CATÁLOGO</a>
                 </li>
                 <li class="nav-item nav-friki-item">
-                    <a class="nav-link" href="pages/comocomprar.html">CÓMO COMPRAR</a>
+                    <a class="nav-link" href="comocomprar.html">CÓMO COMPRAR</a>
                 </li>
                 <li class="nav-item nav-friki-item">
-                    <a class="nav-link" href="pages/blog.html">BLOG</a>
+                    <a class="nav-link" href="blog.html">BLOG</a>
                 </li>
                 <li class="nav-item nav-friki-item">
-                    <a class="nav-link" href="pages/contacto.html">CONTACTO</a>
+                    <a class="nav-link" href="contacto.html">CONTACTO</a>
                 </li>
               </ul>
             </div>
@@ -67,7 +103,7 @@
                 <div>
                     <p><span class="destacado__descripcion bg-white">The Velvet Underground & Nico es el primer álbum de estudio de la banda estadounidense The Velvet Underground, lanzado en 1967 con la colaboración en las voces de la cantante alemana Nico.</span></p>
                 </div>
-                <a href="pages/destacado.html"><button class="btn bg-black text-white">MAS INFO</button></a>
+                <a href="destacado.html"><button class="btn bg-black text-white">MAS INFO</button></a>
               </div>
           </section>
           <section id="formatos">
@@ -75,21 +111,21 @@
               <div class="container-fluid">
                 <div class="row" id="formatos">
                   <div class="col-12 col-sm-12 col-md-4 col-lg-4 colxl-4" id="formatos-vinilos" data-aos="fade-up">
-                    <a href="pages/404.html">
+                    <a href="404.html">
                       <div class="categoriaBlock d-flex justify-content-center align-items-center">
                         <h2><span class="bg-black">VINILOS</span></h2>
                       </div>
                     </a>
                     </div>
                   <div class="col-12 col-sm-12 col-md-4 col-lg-4 colxl-4"  id="formatos-cds" data-aos="fade-up">
-                    <a href="pages/404.html">
+                    <a href="404.html">
                       <div class="categoriaBlock d-flex justify-content-center align-items-center">
                         <h2><span class="bg-black">CDs</span></h2>
                       </div>
                     </a>
                   </div>
                   <div class="col-12 col-sm-12 col-md-4 col-lg-4 colxl-4" id="formatos-cassettes" data-aos="fade-up">
-                    <a href="pages/404.html">
+                    <a href="404.html">
                       <div class="categoriaBlock d-flex justify-content-center align-items-center">
                         <h2><span class="bg-black">CASSETTES</span></h2>
                       </div>
@@ -102,41 +138,7 @@
               <h2><span class="sectionTitle bg-black">NOVEDADES</span></h2>
               <div class="contenedor__novedades">
                 <div class="row" id="novedades__productos">
-                  <div class="col-12 col-sm-12 col-md-6 col-lg-3 colxl-3" data-aos="fade-up">
-                      <img src="images/Blur-blur.png" alt="Blur-blur" class="img-fluid">
-                      <h3 class="novedades__producto__nombre text-white"><span class="bg-black">Blur - Blur</span></h3>
-                      <p class="novedades__producto__descripcion">Vinilo 12' (nuevo y sellado)</p>
-                      <p class="precio">$5.000 <span class="badge bg-uno text-black">OFERTA</span></p>
-                      <div>
-                        <a href="pages/contacto.html"><button type="button" class="btn btn-friki">MÁS INFO</button></a>
-                      </div>
-                    </div>
-                  <div class="col-12 col-sm-12 col-md-6 col-lg-3 colxl-3" data-aos="fade-up">
-                      <img src="images/arcade-fire-neon-bible.png" alt="arcade-fire-neon-bible" class="img-fluid">
-                      <h3 class="novedades__producto__nombre text-white"><span class="bg-black">Arcade Fire - Neon Bible</span></h3>
-                      <p class="novedades__producto__descripcion">Vinilo 12' (nuevo y sellado)</p>
-                      <p class="precio">$5.600</p>
-                      <div>
-                        <a href="pages/contacto.html"><button type="button" class="btn btn-friki">MÁS INFO</button></a>
-                      </div>                   
-                  </div>
-                  <div class="col-12 col-sm-12 col-md-6 col-lg-3 colxl-3" data-aos="fade-up">
-                    <img src="images/daft-punk-ram.png" alt="daft-punk-ram" class="img-fluid">
-                      <h3 class="novedades__producto__nombre text-white"><span class="bg-black">Daft Punk - Random Access Memories</span></h3>
-                      <p class="novedades__producto__descripcion">Vinilo 12' (nuevo y sellado)</p>
-                      <p class="precio">$6.500 <span class="badge bg-secondary text-black">SIN STOCK</span></p>
-                      <div>
-                        <a href="pages/contacto.html"><button type="button" class="btn btn-friki">MÁS INFO</button></a>
-                      </div> 
-                  </div>
-                  <div class="col-12 col-sm-12 col-md-6 col-lg-3 colxl-3" data-aos="fade-up">
-                    <img src="images/diiv-is-the-is-are.png" alt="diiv-is-the-is-are" class="img-fluid">
-                      <h3 class="novedades__producto__nombre text-white"><span class="bg-black">DIIV - Is The Is Are</span></h3>
-                      <p class="novedades__producto__descripcion">Vinilo 12' (nuevo y sellado)</p>
-                      <p class="precio">$5.500</p>
-                        <a href="pages/contacto.html"><button type="button" class="btn btn-friki">MÁS INFO</button></a>
-                      </div> 
-                  </div>
+                  <!--Acá se insertan dinámicamente las tarjetas con productos que son novedad-->
               </div>   
             </div>     
           </section>
@@ -145,11 +147,11 @@
             <div class="container">
               <div class="row">
                 <div class="col-12 col-sm-12 col-md-12 col-lg-6 colxl-6" data-aos="fade-up">
-                  <img src="images/ilus_comprar.png" alt="ilustracion de una perosona pinchando vinilos" class="img-fluid">
+                  <img src="../images/ilus_comprar.png" alt="ilustracion de una perosona pinchando vinilos" class="img-fluid">
                 </div>
                 <div class="col-12 col-sm-12 col-md-12 col-lg-6 colxl-6 comoComprar__texto" data-aos="fade-up">
                   <p>Comprá cuando quieras y desde donde quieras. Hacemos envíos a todo el mundo (o podés pasar a retirarlos por Caballito)! Mirá los discos que tenemos en nuestro catálogo y contactate con nosotros para coordinar tu compra.</p>
-                  <a href="pages/comocomprar.html"><button type="button" class="btn btn-friki">MÁS INFO</button></a>
+                  <a href="comocomprar.html"><button type="button" class="btn btn-friki">MÁS INFO</button></a>
                 </div> 
             </div>
           </div>
@@ -158,7 +160,7 @@
             <div class="container-fluid text-center text-md-left">
               <div class="row">
                 <div class="col-md-3">
-                  <img src="images/logofriki.png" alt="friki discos" width="100px">
+                  <img src="../images/logofriki.png" alt="friki discos" width="100px">
                   <p>Friki Discos busca ser más que una tienda de música Indie, queremos ser un delivery de emociones. Te llevamos, estés donde estés, la música que te gusta. </p>
                 </div>
                 <div class="col-md-3 mb-3">
@@ -178,22 +180,22 @@
                   </form>
                 </div>
                 <div class="col-md-3 mb-md-0 text-center">
-                  <a href="index.html"><h5>FRIKI HOME</h5></a>
+                  <a href="../index.html"><h5>FRIKI HOME</h5></a>
                   <ul class="list-unstyled">
                     <li>
-                      <a href="pages/destacado.html">Destacado</a>
+                      <a href="destacado.html">Destacado</a>
                     </li>
                     <li>
-                      <a href="pages/catalogo.html">Catálogo</a>
+                      <a href="catalogo.html">Catálogo</a>
                     </li>
                     <li>
-                      <a href="pages/comocomprar.html">Cómo comprar</a>
+                      <a href="comocomprar.html">Cómo comprar</a>
                     </li>
                     <li>
-                      <a href="pages/blog.html">Blog</a>
+                      <a href="blog.html">Blog</a>
                     </li>
                     <li>
-                      <a href="pages/contacto.html">Contacto</a>
+                      <a href="contacto.html">Contacto</a>
                     </li>
                   </ul>
                 </div>
@@ -217,10 +219,11 @@
               Friki Discos
             </div>
           </footer>
-          <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
           <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
           <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
           <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+          <script src="../js/clases.js"></script>
+          <script src="../js/novedadeshome.js"></script>
           <script>
             AOS.init();
           </script>

@@ -7,6 +7,7 @@ let total = 0;
 let itemsCarrito = 0;
 let envioElegido = 0;
 
+
 /////MODAL CARRITO/////
     let contenedorCarrito = document.getElementById("productosCarrito");
     let tituloCarrito = document.createElement("h4");
@@ -106,6 +107,7 @@ const traerCarrito = () => {
 
 //Producto y métodos objeto producto
 class Productos {
+
     constructor(nombreProducto, descripcionProducto, imagenProducto, releaseID, precioProducto, stockProducto, isNovedad){
         this.nombreProducto = nombreProducto;
         this.descripcionProducto = descripcionProducto;
@@ -525,25 +527,8 @@ class Funciones {
         contenedorEdicion.appendChild(tablaEdicion);
     });
     }    
-
-    /*
-    static async obtenerProductos(){
-        return await fetch('../productos.json').then(response => response.json()).then(json => json);
-    }
-
-    static async cargarProductos() {
-        const productosJSON = await Funciones.obtenerProductos();
-        productos = []
-        productosJSON.forEach(element => {
-           productos.push(new Productos(element.nombreProducto, element.descripcionProducto, element.imagenProducto, element.releaseID, element.precioProducto, element.stockProducto, element.isNovedad))
-       });
-       return productos;
-       }
-    static async cargar(){
-        await Funciones.cargarProductos().then(json => json);
-    }
-    */
 }
+
 
 productos.push(new Productos("The Velvet Underground & Nico","Vinilo 12 pulg.","images/velvet_banana.png",21428521,5200,2,false))
 productos.push(new Productos("Blur - Blur","Vinilo 12 pulg.","images/Blur-blur.png",15875347,5000,1,true))
@@ -632,10 +617,6 @@ function colorear(){
         }
     })
 }
-
-
-
-
 
 
 traerCarrito();

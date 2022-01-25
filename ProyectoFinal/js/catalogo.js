@@ -7,8 +7,7 @@ let body = document.getElementsByTagName('body');
 Funciones.crearTarjetasProducto(productos, contenedorProductos);
 Funciones.crearModalProducto(productos, body[0])
 
-
-
+// chequea stock para definir qué productos se muestran sin stock
 Funciones.chequearStock(productos)
 
 //BOTONES

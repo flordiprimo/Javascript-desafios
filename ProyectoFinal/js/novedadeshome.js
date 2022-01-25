@@ -8,7 +8,7 @@ isNovedad();
 Funciones.crearTarjetasProducto(novedades, contenedor);
 Funciones.crearModalProducto(novedades, body[0])
 
-
+// cheque astock para definir qué productos se muestran sin stock
 Funciones.chequearStock(novedades)
 
 //BOTONES
@@ -33,7 +33,7 @@ for ( let boton of botonesComprar){
 //botones info
 let botonesInfo = document.querySelectorAll(".botonInfo");
 
-///Trackeo botón MAS INFO
+///Trackeo botón info
 for ( let boton of botonesInfo){
     boton.addEventListener( "click" , function(e){
     //identifico de qué producto voy a solicitar info y lo paso a la función
@@ -47,10 +47,10 @@ for ( let boton of botonesInfo){
     } )
 }
 
-// botones comprar modal
+// botones comprar dentro del modal de producto
 let botonesComprarModal = document.querySelectorAll(".botonComprarModal");
 
-//Trackeo botón de compra modal
+//Trackeo botón de dentro del modal de producto
 for ( let boton of botonesComprarModal){
     boton.addEventListener( "click" , function(e){
         let botonTarget = e.target;
@@ -68,8 +68,8 @@ for ( let boton of botonesComprarModal){
     })
 }
 
-
-// FUNCIONES
+// FUNCIONES 
+// define qué productos del array productos son novedades y los pushea al array novedades
 function isNovedad(){
     productos.forEach( producto => {
         if (producto.isNovedad === true) {

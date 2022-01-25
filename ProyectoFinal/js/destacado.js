@@ -23,19 +23,8 @@ botonCompra.addEventListener("click", function(e){
 // CONTENIDO GENERADO CON LA API DE DISCOGS
 destacadoInfo()
 
-
-
-
-
-
 // Chequea el stock para ver si habilita o no el botón LO QUIERO
 stockDestacado(destacado)
-
-
-
-
-
-
 
 /// FUNCIONES
 function stockDestacado (producto){
@@ -50,8 +39,6 @@ function stockDestacado (producto){
         botonCompra.textContent = "LO QUIERO";
     }
 }
-
-
 
 function destacadoInfo(){
     let releaseID = destacado.releaseID;
